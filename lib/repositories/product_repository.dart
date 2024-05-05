@@ -24,5 +24,10 @@ class ProductRepository implements IProductRepository {
     final response = await httpService.get('/products/categories');
     return (response as List<dynamic>).map((e) => e.toString()).toList();
   }
-
+  
+  @override
+  getById() {
+    // TODO: implement getById
+    throw UnimplementedError();
+  }
 }

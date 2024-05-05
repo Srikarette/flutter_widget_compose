@@ -6,6 +6,7 @@ import 'package:flutter_widget_compose/getit/get_dart.dart';
 import 'package:flutter_widget_compose/widgets/compounds/jumbotron/home_jumbotron.dart';
 import 'package:flutter_widget_compose/widgets/compounds/navbar/home_nav.dart';
 import 'package:flutter_widget_compose/widgets/compounds/sections/catalog.dart';
+import 'package:go_router/go_router.dart';
 
 import '../mocks/products.dart';
 import '../port/product.dart';
@@ -20,16 +21,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final IProductService service = getIt.get<IProductService>();
 
-  void handleProductClick(ProductToDisplay product) {
-    print('Clicked product ID: ${product.id}'); // Placeholder for actual action
+  _HomePageState() {
+    getProducts();
   }
-
 
   List<List<ProductToDisplay>> products = [];
   List<String> categories = [];
 
-  _HomePageState() {
-    getProducts();
+  void handleProductClick(ProductToDisplay product) {
+    context.go('/product/${product.id}');
   }
 
   void getProducts() async {
