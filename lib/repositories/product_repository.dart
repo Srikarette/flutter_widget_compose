@@ -1,12 +1,13 @@
+import 'package:flutter_widget_compose/getit/get_dart.dart';
 import 'package:flutter_widget_compose/models/Product.dart';
 import 'package:flutter_widget_compose/network/http/http_service.dart';
 import 'package:flutter_widget_compose/port/product.dart';
 
 class ProductRepository implements IProductRepository {
 
-  final HttpService httpService;
+  final HttpService httpService = getIt.get<HttpService>();
 
-  ProductRepository(this.httpService);
+  // ProductRepository(this.httpService);
 
   @override
   Future<List<Product>> getByCategory(String category) async {
