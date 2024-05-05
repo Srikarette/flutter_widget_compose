@@ -20,6 +20,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final IProductService service = getIt.get<IProductService>();
 
+  void handleProductClick(ProductToDisplay product) {
+    print('Clicked product ID: ${product.id}'); // Placeholder for actual action
+  }
+
+
   List<List<ProductToDisplay>> products = [];
   List<String> categories = [];
 
@@ -57,7 +62,11 @@ class _HomePageState extends State<HomePage> {
                             title: categories[index].toUpperCase(),
                             buttonTitle: 'ViewCollection'
                         ),
-                        Catalog(title: 'All products',products: products[index]),
+                        Catalog(
+                          title: 'All products',
+                          products: products[index],
+                          onProductClick: handleProductClick,
+                          ),
                         const SizedBox(height: 24,)
                       ],
                     );
