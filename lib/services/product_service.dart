@@ -1,5 +1,5 @@
+import 'package:flutter_widget_compose/di/get_it.dart';
 import 'package:flutter_widget_compose/entities/product.dart';
-import 'package:flutter_widget_compose/getit/get_dart.dart';
 import 'package:flutter_widget_compose/port/product.dart';
 
 class ProductService extends IProductService {

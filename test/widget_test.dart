@@ -16,9 +16,9 @@ import 'package:get_it/get_it.dart';
 void main() {
   final getIt = GetIt.instance;
 
-  getIt.registerSingleton<HttpService>(MockHttpService('mock'));
-  getIt.registerSingleton<IProductRepository>(ProductRepository());
-  getIt.registerSingleton<IProductService>(ProductService());
+  getIt.registerSingleton<HttpService>(MockHttpService('mock') as HttpService);
+  getIt.registerSingleton<IProductRepository>(ProductRepository() as IProductRepository);
+  getIt.registerSingleton<IProductService>(ProductService() as IProductService);
 
   test('Get product by electronics category returns electronics products',() async {
 

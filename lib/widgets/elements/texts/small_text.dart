@@ -13,8 +13,6 @@ class SmallText extends StatelessWidget {
       title,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
-
-          fontFamily: 'Montserrat',
           color: color ?? Colors.black
       ),
     );

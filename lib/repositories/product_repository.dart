@@ -1,4 +1,4 @@
-import 'package:flutter_widget_compose/getit/get_dart.dart';
+import 'package:flutter_widget_compose/di/get_it.dart';
 import 'package:flutter_widget_compose/models/Product.dart';
 import 'package:flutter_widget_compose/network/http/http_service.dart';
 import 'package:flutter_widget_compose/port/product.dart';
@@ -24,10 +24,5 @@ class ProductRepository implements IProductRepository {
     final response = await httpService.get('/products/categories');
     return (response as List<dynamic>).map((e) => e.toString()).toList();
   }
-  
-  @override
-  getById() {
-    // TODO: implement getById
-    throw UnimplementedError();
-  }
+
 }

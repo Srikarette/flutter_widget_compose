@@ -1,4 +1,3 @@
-
 import 'package:flutter_widget_compose/entities/product.dart';
 
 final List<ProductToDisplay> clothes =[

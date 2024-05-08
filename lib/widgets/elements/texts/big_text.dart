@@ -15,7 +15,6 @@ class BigText extends StatelessWidget {
     return Text(
         title,
       style: TextStyle(
-        fontFamily: 'Dancing',
         color: color ?? Colors.white,
         fontWeight: FontWeight.w800,
         fontSize: 40

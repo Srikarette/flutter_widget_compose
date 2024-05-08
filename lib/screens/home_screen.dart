@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_widget_compose/di/get_it.dart';
 import 'package:flutter_widget_compose/entities/product.dart';
-import 'package:flutter_widget_compose/getit/get_dart.dart';
 import 'package:flutter_widget_compose/widgets/compounds/jumbotron/home_jumbotron.dart';
+import 'package:flutter_widget_compose/widgets/compounds/loading/loading_indicator.dart';
 import 'package:flutter_widget_compose/widgets/compounds/navbar/home_nav.dart';
 import 'package:flutter_widget_compose/widgets/compounds/sections/catalog.dart';
-import 'package:go_router/go_router.dart';
 
 import '../mocks/products.dart';
 import '../port/product.dart';
@@ -21,18 +19,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final IProductService service = getIt.get<IProductService>();
 
-  _HomePageState() {
-    getProducts();
-  }
-
   List<List<ProductToDisplay>> products = [];
   List<String> categories = [];
 
-  void handleProductClick(ProductToDisplay product) {
-    context.go('/product/${product.id}');
+  bool isLoading = false;
+
+
+  @override
+  void initState() {
+    getProducts();
+    super.initState();
   }
 
   void getProducts() async {
+
+    setState(() {
+      isLoading = true;
+    });
     final categories = await service.getCategories();
     final productsFetchers = categories.map((e) => service.getByCategory(e));
     final products = await Future.wait(productsFetchers);
@@ -40,7 +43,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       this.categories = categories;
       this.products = products;
+      isLoading = false;
     });
+  }
+
+  void onSelectProduct(ProductToDisplay product) {
+    print(product.name);
   }
 
   @override
@@ -52,27 +60,23 @@ class _HomePageState extends State<HomePage> {
             children: [
               const HomeNavbar(),
               Expanded(
-                child: ListView.builder(
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        HomeJumbotron(
-                            imageUrl: categoryImages[categories[index]]!,
-                            title: categories[index].toUpperCase(),
-                            buttonTitle: 'ViewCollection'
-                        ),
-                        Catalog(
-                          title: 'All products',
-                          products: products[index],
-                          onProductClick: handleProductClick,
+                  child: isLoading
+                      ? const Loading()
+                      : ListView.builder(
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          HomeJumbotron(
+                              imageUrl: categoryImages[categories[index]]!,
+                              title: categories[index].toUpperCase(),
+                              buttonTitle: 'View Collection'
                           ),
-                        const SizedBox(height: 24,)
-                      ],
-                    );
-                  },
-                )
-              ),
+                          Catalog(title: 'All products',products: products[index], onSelectProduct: onSelectProduct,),
+                          const SizedBox(height: 24,)
+                        ],
+                      );},)
+              )
             ],
           ),
         ),
