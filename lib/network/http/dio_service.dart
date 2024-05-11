@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_widget_compose/network/http/http_service.dart';
+import 'package:dio/dio.dart';
 
 class DioService extends HttpService {
 

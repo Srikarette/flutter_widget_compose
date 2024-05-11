@@ -3,16 +3,17 @@ import 'package:flutter_widget_compose/widgets/elements/texts/small_text.dart';
 
 class PrimaryButton extends StatelessWidget {
 
+  final Function()? onPress;
   final String title;
   final Color? titleColor;
 
-  const PrimaryButton({super.key, required this.title, this.titleColor});
+  const PrimaryButton({super.key, required this.title, this.titleColor, this.onPress});
 
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: null,
+        onPressed: onPress,
         style: TextButton.styleFrom(
           backgroundColor: const Color(0xFFEBEBEB),
           shape: const RoundedRectangleBorder(

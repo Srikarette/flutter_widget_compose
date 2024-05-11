@@ -23,7 +23,7 @@ class ProductList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: products.length,
           itemBuilder: (context, index) {
-            return ProductCard(product: products[index],onTap: onSelectProduct,);
+            return ProductCard(key: UniqueKey(), product: products[index],onTap: onSelectProduct,);
           },
       ),
     );
